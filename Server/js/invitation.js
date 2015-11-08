@@ -21,9 +21,9 @@ $(function() {
                 			console.log(account);
                             
                 			if( account['status'] == 'createAccount'){
-                				$('div#message').html( '<div>ようこそ' + account['email'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
+                				$('div#message').html( '<div>ようこそ' + account['username'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
                 			}else if( account['status'] == 'succeedAccount' ){
-        	        			$('div#message').html( '<div>' + account['email'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
+        	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
 
 		                        $( 'a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {

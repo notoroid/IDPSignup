@@ -18,8 +18,9 @@
 	use Parse\ParseFile;
 	use Parse\ParseCloud;
 	use Parse\ParseSessionStorage;
+*/	
+	use Parse\ParseRole;
 	use Parse\ParseRelation;
-*/
 	use Parse\ParseConfig;
 
 
@@ -56,6 +57,9 @@
 		
 		$email = $_SESSION['email'];
 			// メールを取得
+		$username = $_SESSION['username'];
+			// メールを取得
+			
 		$s_passowrd = htmlspecialchars( $_POST['password']  ,ENT_QUOTES);
 			// POSTから取得
 		$key = $_SESSION['key'];
@@ -63,20 +67,64 @@
 			
 		try {
 			$user = new ParseUser();
-			$user->set("username", $email );
+			$user->set("username", $username );
 			$user->set("password", $s_passowrd );
 			$user->set("email", $email );
 			$user->signUp();
 			
-			// 招待オブジェクトを削除
+			
 			$query = new ParseQuery('Invitation');
 			$query->equalTo('UUID', $_SESSION['invitationID'] );
 			$query->greaterThanOrEqualTo('createdAt',date('Y-m-d\TH:i:s.u', strtotime('-24 hour')) );
 				// 24時間以内のオブジェクトに限る
 			$invitation = $query->first();
 			if( $invitation != NULL ){
+				// オプションを登録
+				$options = $invitation->get('options');
+				$roleNames = $options['roles'];
+				foreach ($roleNames as $roleName ){
+					$query = new ParseQuery("_Role");
+					$query->equalTo('name', $roleName );
+					$role = $query->first();
+					if( $role != NULL ){
+						$role->getUsers()->add($user);
+						$role->save();
+					}
+				}
+
+				$objectProperties = $options['properties'];
+				foreach ($objectProperties as $objectPropertie ){
+					$propertyName = $objectPropertie['name'];
+					$queryClassName = $objectPropertie['className'];
+					$queryObjectId = $objectPropertie['objectId'];
+					
+					$query = new ParseQuery($queryClassName);
+					$targetObject = $query->get($queryObjectId);
+					if( $targetObject != NULL ){
+						$user->set($propertyName, $targetObject );	
+						$user->save();
+					}
+				}
+				
+				$relationsCollection = $options['relations'];
+				foreach ($relationsCollection as $relations ){
+					$propertyName = $relations['name'];
+					$queryClassName = $relations['className'];
+					$queryObjectId = $relations['objectId'];
+					
+					$query = new ParseQuery($queryClassName);
+					$targetObject = $query->get($queryObjectId);
+					if( $targetObject != NULL ){
+						$targetRelations = $targetObject->getRelation($propertyName);
+						$targetRelations->add($user);
+						$targetObject->save();
+					}
+				}
+				
+				// 招待オブジェクトを削除
 				$invitation->destroy();
 			}
+			
 
 			// 新しくUUIDを生成
 			$UUID = Uuid::uuid1();
@@ -101,9 +149,9 @@
 				$_SESSION['status'] = 'failureExistUser';
 				$config = new ParseConfig();
 					// config を取得
-					$_SESSION['loginURL'] = $config->get('IDPLoginScheme');
+				$_SESSION['loginURL'] = $config->get('IDPLoginScheme');
 				
-				echo file_get_contents('4_existuser.html');
+				echo file_get_contents('3_failured.html');
 			}else{
 				// Show the error message somewhere and let the user try again.
 				echo "Error: " . $ex->getCode() . " " . $ex->getMessage();
@@ -125,18 +173,19 @@
 				// 24時間以内のオブジェクトに限る
 			$invitation = $query->first();
 				// Invitationオブジェクトを取得
-
+			
 			if( $invitation != NULL ){
 				$_SESSION['invitationID'] = $invitation->get('UUID');
 					// 招待IDを格納
 				$_SESSION['email'] = $invitation->get('email');
+				$_SESSION['username'] = $invitation->get('username');
 				$_SESSION['status'] = 'createAccount';
 				$_SESSION['key'] = $invitation->get('key');
 				
 				echo file_get_contents('1_signup.html');
 			}else{
 				//タイムアウト
-				echo file_get_contents('5_timeout.html');
+				echo file_get_contents('3_failured.html');
 			}
 		} catch (ParseException $ex) {
 		  // Show the error message somewhere and let the user try again.
@@ -162,10 +211,11 @@
 		header( 'Content-Type: application/json' );
 		echo json_encode( $response );
 	}else if( empty($s_callback) != true ){
-		
+		// アプリ内のセッション
 		$response = new StdClass;
 		$response->invitationID = $_SESSION['invitationID'];
 		$response->email = $_SESSION['email'];
+		$response->username = $_SESSION['username'];
 		$response->status = $_SESSION['status'];
 	
 		if( empty($_SESSION['loginURL']) != true ){
