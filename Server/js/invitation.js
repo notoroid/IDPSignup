@@ -23,7 +23,7 @@ $(function() {
                 			if( account['status'] == 'createAccount'){
                 				$('div#message').html( '<div>ようこそ' + account['email'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
                 			}else if( account['status'] == 'succeedAccount' ){
-        	        			$('div#message').html( '<div>' + account['email'] + 'さん。アカウント作成が完了しました。以下のURLをタップしてアプリケーションを起動してください。<a href="' + account['loginURL'] + '">' + account['loginURL'] + '</a></div>' );
+        	        			$('div#message').html( '<div>' + account['email'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
 
 		                        $( 'a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
@@ -31,7 +31,7 @@ $(function() {
 		                        });
                                 
                 			}else if( account['status'] == 'failureExistUser' ){
-        	        			$('div#message').html( '<div>すでに追加済みのユーザです。以下のURLをタップしてアプリケーションを起動してください。<a href="' + account['loginURL'] + '">' + account['loginURL'] + '</a></div>' );
+        	        			$('div#message').html( '<div>すでに追加済みのユーザです。</div>' );
                                 
 		                        $( 'a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
