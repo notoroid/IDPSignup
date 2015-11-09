@@ -220,7 +220,7 @@
 					// config を取得
 				$_SESSION['loginURL'] = $config->get('IDPLoginScheme');
 				
-				echo file_get_contents('3_failured.html');
+				echo file_get_contents('2_succeeded.html');	
 			}else{
 				// Show the error message somewhere and let the user try again.
 				echo "Error: " . $ex->getCode() . " " . $ex->getMessage();

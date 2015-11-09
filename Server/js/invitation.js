@@ -17,49 +17,78 @@ $(function() {
                     $.getJSON("signup.php?callback=?",{unique:uuid()},
                         function(data, status){
                             account = data;
-                
                 			console.log(account);
                             
                 			if( account['status'] == 'createAccount'){
-	                			if( account['title'].length > 0 ){
+	                			if( account['title'] != undefined ){
 		                			$('#headerTitle').text(account['title']);
 	                			}else{
 		                			$('#headerTitle').text('サインアップ');	
 	                			}
 	                			
-	                			if( account['message'].length > 0 ){
+	                			if( account['message'] != undefined ){
 		                			$('div#message').html( '<div>' + account['message'] + '</div>' );
 		                		}else{
 	                				$('div#message').html( '<div>ようこそ' + account['username'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
 		                		}
                 			}else if( account['status'] == 'succeedAccount' ){
-	                			if( account['title'].length > 0 ){
+	                			
+	                			if( account['title'] != undefined ){
 		                			$('#headerTitle').text(account['title']);
 	                			}else{
 		                			$('#headerTitle').text('成功');
 		                		}
 	                			
-	                			if( account['message'].length > 0 ){
+	                			if( account['message'] != undefined ){
 		                			$('div#message').html( '<div>' + account['message'] + '</div>' );
 		                		}else{
 	        	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
 		                		}
 	                			
-		                        $( 'a#openApplication' ).href ='';
+        	        			if( account['buttonTitile'] != undefined ){
+        	        				$('a#openApplication.ui-btn-text' ).text(account['buttonTitile']);
+                                }
+
+		                        $('a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
 		                             location.href = account['loginURL'];
 		                        });
                                 
                 			}else if( account['status'] == 'failureExistUser' ){
-	                			$('#headerTitle').text('既存のユーザーです。');
+	                			if( account['title'].length != undefined ){
+		                			$('#headerTitle').text(account['title']);
+	                			}else{
+		                			$('#headerTitle').text('既存のユーザーです。');
+	                			}
 	                			
-        	        			$('div#message').html( '<div>すでに追加済みのユーザです。</div>' );
+	                			if( account['message'] != undefined ){
+		                			$('div#message').html( '<div>' + account['message'] + '</div>' );
+	                			}else{
+	        	        			$('div#message').html( '<div>すでに追加済みのユーザです。</div>' );
+        	        			}
+        	        			
+        	        			if( account['buttonTitile'] != undefined  ){
+        	        				$('a#openApplication.ui-btn-text' ).text(account['buttonTitile']);
+                                }
                                 
-		                        $( 'a#openApplication' ).href ='';
+		                        $('a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
 		                             location.href = account['loginURL'];
 		                        });
 		                        
+		                    }else if( account['status'] == 'failureTimeout' ){
+	                			if( account['title'] != undefined  ){
+		                			$('#headerTitle').text(account['title']);
+	                			}else{
+		                			$('#headerTitle').text('タイムアウト');
+	                			}
+			                    
+			                    if( account['message'] != undefined  ){
+				                    $('div#message').html( '<div>' + account['message'] + '</div>' );
+				                }else{
+	        	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成の招待はタイムアウトしました。再度招待をリクエストしてください。</div>' );
+				                }
+				                
 		                    }
 
                     	}

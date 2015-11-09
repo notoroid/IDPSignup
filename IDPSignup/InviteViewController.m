@@ -68,6 +68,8 @@
                 _inviteURL = URL;
                 _inviteTextField.text =_inviteURL.absoluteString;
                 
+                NSLog(@"inviteURL=%@",_inviteURL.absoluteString);
+                
                 [_userInviteViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [obj setHidden:NO];
                 }];
