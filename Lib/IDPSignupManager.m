@@ -32,7 +32,7 @@ static IDPSignupManager* s_signupManager = nil;
     return s_signupManager;
 }
 
-- (void) generateInviteWithUsername:(NSString *)username mail:(NSString *)mail options:(NSDictionary *)options completion:(void (^)(NSError *error,PFObject *inviteObject,NSString *invideCode))completion
+- (void) generateInviteWithUsername:(NSString *)username mail:(NSString *)mail options:(NSDictionary *)options pageResources:(NSDictionary *)pageResources completion:(void (^)(NSError *error,PFObject *inviteObject,NSString *invideCode))completion
 {
     PFObject *invitation = [PFObject objectWithClassName:@"Invitation"];
     
@@ -44,6 +44,10 @@ static IDPSignupManager* s_signupManager = nil;
     [invitation setObject:username forKey:@"username"];
     if( options != nil ){
         [invitation setObject:options forKey:@"options"];
+    }
+    
+    if( pageResources != nil ){
+        [invitation setObject:pageResources forKey:@"pageResources"];
     }
     
     [invitation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -69,7 +73,7 @@ static IDPSignupManager* s_signupManager = nil;
     }];
 }
 
-- (void) signupInviteWithUsername:(NSString *)username mail:(NSString *)mail roles:(NSArray *)roles properties:(NSArray *)properties completion:(void (^)(NSError *error,NSURL *URL))completion;
+- (void) signupInviteWithUsername:(NSString *)username mail:(NSString *)mail roles:(NSArray *)roles properties:(NSArray *)properties pageResources:(NSDictionary *)pageResources completion:(void (^)(NSError *error,NSURL *URL))completion;
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
@@ -81,14 +85,14 @@ static IDPSignupManager* s_signupManager = nil;
         dict[@"properties"] = properties;
     }
     
-    [self signupInviteWithUsername:username mail:mail options:[NSDictionary dictionaryWithDictionary:dict] completion:completion];
+    [self signupInviteWithUsername:username mail:mail options:[NSDictionary dictionaryWithDictionary:dict] pageResources:pageResources completion:completion];
         // サインアップをyobidasi
 }
 
-- (void) signupInviteWithUsername:(NSString *)username mail:(NSString *)mail options:(NSDictionary *)options completion:(void (^)(NSError *error,NSURL *URL))completion
+- (void) signupInviteWithUsername:(NSString *)username mail:(NSString *)mail options:(NSDictionary *)options pageResources:(NSDictionary *)pageResources completion:(void (^)(NSError *error,NSURL *URL))completion
 {
     
-    [self generateInviteWithUsername:username mail:mail options:options completion:^(NSError *error, PFObject *inviteObject, NSString *invideCode) {
+    [self generateInviteWithUsername:username mail:mail options:options pageResources:pageResources completion:^(NSError *error, PFObject *inviteObject, NSString *invideCode) {
         
         if( error == nil ){
             [self generateURLWithInvideCode:invideCode completion:^(NSError *error, NSURL *URL) {

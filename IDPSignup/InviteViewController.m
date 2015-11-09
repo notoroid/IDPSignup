@@ -49,7 +49,7 @@
                                                 [NSDictionary dictionaryWithPropertyName:appDelegate.usersGroupPropertyName className:appDelegate.usersGroupClassName objectId:appDelegate.usersGroupObjectID destinationType:IDPSignupPropertyDestinationTypeUser]
                                            ]
                                    };
-        [[IDPSignupManager defaultManager] signupInviteWithUsername:_email mail:_email options:options completion:^(NSError *error, NSURL *URL) {
+        [[IDPSignupManager defaultManager] signupInviteWithUsername:_email mail:_email options:options pageResources:@{IDP_SIGNUP_DEFAULT_PAGE_TITLE:@"SignupDemo"} completion:^(NSError *error, NSURL *URL) {
         
         
 

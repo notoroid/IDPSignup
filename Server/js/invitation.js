@@ -21,16 +21,21 @@ $(function() {
                 			console.log(account);
                             
                 			if( account['status'] == 'createAccount'){
+	                			$('#headerTitle').text('サインアップ');
+	                			
                 				$('div#message').html( '<div>ようこそ' + account['username'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
                 			}else if( account['status'] == 'succeedAccount' ){
+	                			$('#headerTitle').text('成功');
+	                			
         	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
-
 		                        $( 'a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
 		                             location.href = account['loginURL'];
 		                        });
                                 
                 			}else if( account['status'] == 'failureExistUser' ){
+	                			$('#headerTitle').text('既存のユーザーです。');
+	                			
         	        			$('div#message').html( '<div>すでに追加済みのユーザです。</div>' );
                                 
 		                        $( 'a#openApplication' ).href ='';

@@ -27,11 +27,13 @@
 	use Ramsey\Uuid\Uuid;
 	use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 	
+	define('IDP_SIGNUP_PAGE_RESOURCES', 'pageResources' );
+	define('IDP_SIGNUP_DEFAULT_PAGE_TITLE', 'defaultPageTitle' );
+	
 	define('PARSE_APPLICATION_ID', '<YOUR_PARSE_APPLICATION_ID>' );
 	define('PARSE_REST_API_KEY', '<YOUR_PARSE_REST_API_KEY>' );
 	define('PARSE_MASTER_KEY', '<YOUR_PARSE_MASTER_KEY>' );
 
-// 	$s_invitationid = 'F25D1889430D499396150B2EF15E3C12';
 	$s_invitationid = htmlspecialchars($_GET['invitationid'], ENT_QUOTES);
 	$s_method = htmlspecialchars($_POST['method'], ENT_QUOTES);
 	$s_callbackid =  htmlspecialchars($_GET['callbackid'], ENT_QUOTES);
@@ -232,7 +234,11 @@
 				$_SESSION['email'] = $invitation->get('email');
 				$_SESSION['username'] = $invitation->get('username');
 				$_SESSION['status'] = 'createAccount';
-				$_SESSION['key'] = $invitation->get('key');
+				
+				$pageResources = $invitation->get(IDP_SIGNUP_PAGE_RESOURCES);
+				if( $pageResources != NULL ){
+					$_SESSION[IDP_SIGNUP_DEFAULT_PAGE_TITLE] = $pageResources[IDP_SIGNUP_DEFAULT_PAGE_TITLE];
+				}
 				
 				echo file_get_contents('1_signup.html');
 			}else{
@@ -269,6 +275,7 @@
 		$response->email = $_SESSION['email'];
 		$response->username = $_SESSION['username'];
 		$response->status = $_SESSION['status'];
+		$response->defaultPageTitle = $_SESSION[IDP_SIGNUP_DEFAULT_PAGE_TITLE];
 	
 		if( empty($_SESSION['loginURL']) != true ){
 			$response->loginURL = $_SESSION['loginURL'];	
