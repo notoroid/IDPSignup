@@ -39,6 +39,7 @@
 		879DA41A1BEDF329002F0DDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		879DA41D1BEDF329002F0DDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		879DA41F1BEDF329002F0DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87F330591BF16A81000C7E20 /* IDPSignup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPSignup.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +70,7 @@
 				875CE9DB1BF09EDC00536BB2 /* IDPSignupManager.m */,
 				875CE9DC1BF09EDC00536BB2 /* NSDictionary+IDPSignup.h */,
 				875CE9DD1BF09EDC00536BB2 /* NSDictionary+IDPSignup.m */,
+				87F330591BF16A81000C7E20 /* IDPSignup.h */,
 			);
 			path = Lib;
 			sourceTree = "<group>";

@@ -7,9 +7,8 @@
 //
 
 #import "InviteViewController.h"
-#import "IDPSignupManager.h"
+#import "IDPSignup.h"
 #import <Parse/Parse.h>
-#import "NSDictionary+IDPSignup.h"
 #import "AppDelegate.h"
 
 @interface InviteViewController ()

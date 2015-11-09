@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-#import "IDPSignupManager.h"
+#import "IDPSignup.h"
 #import "StartViewController.h"
 
 @interface AppDelegate ()
