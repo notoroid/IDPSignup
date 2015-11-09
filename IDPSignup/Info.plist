@@ -27,7 +27,7 @@
 			<string>com.irimasu.singupDemo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>signupdemo:</string>
+				<string>signupdemo</string>
 			</array>
 		</dict>
 	</array>
