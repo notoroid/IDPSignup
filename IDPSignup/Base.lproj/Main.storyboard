@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rct-16-kK7">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="KRm-OK-dWG">
+            <objects>
+                <navigationController id="Rct-16-kK7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MYz-Lp-t1r">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Z2U-ND-zV0" kind="relationship" relationship="rootViewController" id="TGy-QS-VgB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cj9-cf-JIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="26" y="-103"/>
+        </scene>
+        <!--Start View Controller-->
+        <scene sceneID="pYw-Qd-bdj">
+            <objects>
+                <viewController id="Z2U-ND-zV0" customClass="StartViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mAa-QL-vdj"/>
+                        <viewControllerLayoutGuide type="bottom" id="ccr-Y1-We0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D7d-s8-Ze8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test@edl.sakura.ne.jp" borderStyle="roundedRect" placeholder="メールアドレスを入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="61E-eo-Ku7">
+                                <rect key="frame" x="249" y="235" width="202" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="202" id="HWN-D6-v6D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VpP-R3-2Lh">
+                                <rect key="frame" x="168" y="241" width="75" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNH-hr-zLd">
+                                <rect key="frame" x="233" y="270" width="135" height="30"/>
+                                <state key="normal" title="ユーザーを招待する"/>
+                                <connections>
+                                    <action selector="onInvite:" destination="Z2U-ND-zV0" eventType="touchUpInside" id="hqX-BA-pIh"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dbs-bA-m1u">
+                                <rect key="frame" x="249" y="305" width="202" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="202" id="Lqc-HT-cgB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="招待ユーザー" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBw-wK-gyp">
+                                <rect key="frame" x="153" y="311" width="90" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fNH-hr-zLd" firstAttribute="centerX" secondItem="D7d-s8-Ze8" secondAttribute="centerX" id="63t-Iu-rxn"/>
+                            <constraint firstItem="61E-eo-Ku7" firstAttribute="leading" secondItem="VpP-R3-2Lh" secondAttribute="trailing" constant="6" id="8jn-IO-Nxn"/>
+                            <constraint firstItem="dbs-bA-m1u" firstAttribute="centerX" secondItem="D7d-s8-Ze8" secondAttribute="centerX" constant="50" id="IsA-NH-l0V"/>
+                            <constraint firstItem="61E-eo-Ku7" firstAttribute="centerX" secondItem="D7d-s8-Ze8" secondAttribute="centerX" constant="50" id="VPu-vA-u80"/>
+                            <constraint firstItem="dbs-bA-m1u" firstAttribute="leading" secondItem="RBw-wK-gyp" secondAttribute="trailing" constant="6" id="ZJF-8o-Ln4"/>
+                            <constraint firstItem="61E-eo-Ku7" firstAttribute="centerY" secondItem="VpP-R3-2Lh" secondAttribute="centerY" id="cwb-vo-Xvu"/>
+                            <constraint firstItem="dbs-bA-m1u" firstAttribute="centerY" secondItem="D7d-s8-Ze8" secondAttribute="centerY" constant="20" id="ecw-ko-5WX"/>
+                            <constraint firstItem="fNH-hr-zLd" firstAttribute="centerY" secondItem="D7d-s8-Ze8" secondAttribute="centerY" constant="-15" id="jOs-a3-lWT"/>
+                            <constraint firstItem="61E-eo-Ku7" firstAttribute="centerY" secondItem="D7d-s8-Ze8" secondAttribute="centerY" constant="-50" id="oJP-dz-GJB"/>
+                            <constraint firstItem="dbs-bA-m1u" firstAttribute="centerY" secondItem="RBw-wK-gyp" secondAttribute="centerY" id="qEE-wQ-IbX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="b5p-iB-pyO"/>
+                    <connections>
+                        <outlet property="_emailTextView" destination="61E-eo-Ku7" id="uVh-yV-6za"/>
+                        <outlet property="inviteTextView" destination="dbs-bA-m1u" id="ACV-HG-bhc"/>
+                        <segue destination="h9s-dD-liz" kind="presentation" identifier="inviteSegue" id="aw1-Hd-PSq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lG-oW-F5G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="733" y="-103"/>
+        </scene>
+        <!--Invite View Controller-->
+        <scene sceneID="ll9-cc-TUq">
+            <objects>
+                <viewController id="h9s-dD-liz" customClass="InviteViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MUT-Xh-kLD"/>
+                        <viewControllerLayoutGuide type="bottom" id="zoS-M5-Kuk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jqA-gr-8hP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="招待コードを作成中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csF-AL-bse">
+                                <rect key="frame" x="208" y="289" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="t3b-wx-stE">
+                                <rect key="frame" x="369" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bf-Op-OH9">
+                                <rect key="frame" x="248" y="285" width="105" height="30"/>
+                                <state key="normal" title="ユーザーを招待"/>
+                                <connections>
+                                    <action selector="onInvite:" destination="h9s-dD-liz" eventType="touchUpInside" id="Cui-Ya-p51"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GQy-O9-cio">
+                                <rect key="frame" x="156" y="315" width="230" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="IeW-xP-mE2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0i-Jy-5J6">
+                                <rect key="frame" x="395" y="315" width="45" height="30"/>
+                                <state key="normal" title="コピー"/>
+                                <connections>
+                                    <action selector="onPastboard:" destination="h9s-dD-liz" eventType="touchUpInside" id="iFm-nE-zcO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mnf-Rp-2ao">
+                                <rect key="frame" x="278" y="353" width="45" height="30"/>
+                                <state key="normal" title="閉じる"/>
+                                <connections>
+                                    <segue destination="3de-J6-pJx" kind="unwind" unwindAction="returnFromInvite:" id="aJL-v5-ETd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mnf-Rp-2ao" firstAttribute="top" secondItem="GQy-O9-cio" secondAttribute="bottom" constant="8" id="4y6-Wh-GEA"/>
+                            <constraint firstItem="csF-AL-bse" firstAttribute="centerY" secondItem="jqA-gr-8hP" secondAttribute="centerY" id="A8b-Vj-89d"/>
+                            <constraint firstItem="t3b-wx-stE" firstAttribute="centerY" secondItem="jqA-gr-8hP" secondAttribute="centerY" id="JVo-XS-96C"/>
+                            <constraint firstItem="5bf-Op-OH9" firstAttribute="centerX" secondItem="jqA-gr-8hP" secondAttribute="centerX" id="OhX-cg-lQr"/>
+                            <constraint firstItem="v0i-Jy-5J6" firstAttribute="leading" secondItem="GQy-O9-cio" secondAttribute="trailing" constant="9" id="PZL-4Z-jwO"/>
+                            <constraint firstItem="5bf-Op-OH9" firstAttribute="centerY" secondItem="jqA-gr-8hP" secondAttribute="centerY" id="Tpw-pq-qFh"/>
+                            <constraint firstItem="v0i-Jy-5J6" firstAttribute="centerY" secondItem="GQy-O9-cio" secondAttribute="centerY" id="Vhg-vL-SBG"/>
+                            <constraint firstItem="GQy-O9-cio" firstAttribute="centerX" secondItem="jqA-gr-8hP" secondAttribute="centerX" constant="-29" id="aUI-46-YX4"/>
+                            <constraint firstItem="GQy-O9-cio" firstAttribute="centerY" secondItem="jqA-gr-8hP" secondAttribute="centerY" constant="30" id="el6-Si-Wxl"/>
+                            <constraint firstItem="csF-AL-bse" firstAttribute="centerY" secondItem="jqA-gr-8hP" secondAttribute="centerY" id="jaI-Q1-zZW"/>
+                            <constraint firstItem="mnf-Rp-2ao" firstAttribute="centerX" secondItem="jqA-gr-8hP" secondAttribute="centerX" id="kGV-0E-URx"/>
+                            <constraint firstItem="csF-AL-bse" firstAttribute="centerX" secondItem="jqA-gr-8hP" secondAttribute="centerX" constant="-16" id="qaZ-8Q-fVm"/>
+                            <constraint firstItem="t3b-wx-stE" firstAttribute="leading" secondItem="csF-AL-bse" secondAttribute="trailing" constant="8" id="rvK-Mv-ILl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="_inviteTextField" destination="GQy-O9-cio" id="ItH-SW-2to"/>
+                        <outletCollection property="_generateInvitationViews" destination="csF-AL-bse" id="g11-vn-dEk"/>
+                        <outletCollection property="_generateInvitationViews" destination="t3b-wx-stE" id="67S-xO-bzB"/>
+                        <outletCollection property="_userInviteViews" destination="5bf-Op-OH9" id="vgL-pl-PAg"/>
+                        <outletCollection property="_userInviteViews" destination="GQy-O9-cio" id="OIA-rV-2Qx"/>
+                        <outletCollection property="_userInviteViews" destination="v0i-Jy-5J6" id="A9z-BV-h04"/>
+                        <outletCollection property="_userInviteViews" destination="mnf-Rp-2ao" id="wqM-kM-alb"/>
+                        <segue destination="3de-J6-pJx" kind="unwind" identifier="returnToStartSegue" unwindAction="returnFromInvite:" id="rAw-pR-And"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fMf-FL-q5r" sceneMemberID="firstResponder"/>
+                <exit id="3de-J6-pJx" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1452" y="-103"/>
+        </scene>
+    </scenes>
+</document>
