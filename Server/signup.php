@@ -27,7 +27,6 @@
 	use Ramsey\Uuid\Uuid;
 	use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 	
-
 	define('PARSE_APPLICATION_ID', '<YOUR_PARSE_APPLICATION_ID>' );
 	define('PARSE_REST_API_KEY', '<YOUR_PARSE_REST_API_KEY>' );
 	define('PARSE_MASTER_KEY', '<YOUR_PARSE_MASTER_KEY>' );
@@ -86,9 +85,7 @@
 				foreach ($roleSchemes as $roleScheme ){
 					$roleName = $roleScheme['name'];
 					$roleGenerateType = $roleScheme['generateType'];
-/*					
-					$roleRelationShips = $roleScheme['relationShips'];
-*/
+					$acceptRoleNames = $roleScheme['acceptRoles'];					
 					
 					// 既存のRoleに追加
 					$saveRole = false;
@@ -114,8 +111,25 @@
 							$role = ParseRole::createRole($roleName, $roleACL);
 							$role->getUsers()->add($user);
 							$role->save();
+							$saveRole = true;
 						}
 					}					
+					
+					if( $saveRole == true ){
+						$hasChangeAcceptRole = false;
+						foreach ($acceptRoleNames as $acceptRoleName ){
+							$query = new ParseQuery("_Role");
+							$query->equalTo('name', $acceptRoleName );
+							$acceptRole = $query->first();
+							if( $acceptRole != NULL ){
+								$role->getRoles()->add($acceptRole);
+								$hasChangeAcceptRole = true;
+							}
+						}
+						if( $hasChangeAcceptRole == true ){
+							$role->save();
+						}
+					}
 				}
 
 				$objectProperties = $options['properties'];
