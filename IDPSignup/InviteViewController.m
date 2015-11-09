@@ -49,9 +49,20 @@
                                                 [NSDictionary dictionaryWithPropertyName:appDelegate.usersGroupPropertyName className:appDelegate.usersGroupClassName objectId:appDelegate.usersGroupObjectID destinationType:IDPSignupPropertyDestinationTypeUser]
                                            ]
                                    };
-        [[IDPSignupManager defaultManager] signupInviteWithUsername:_email mail:_email options:options pageResources:@{IDP_SIGNUP_DEFAULT_PAGE_TITLE:@"SignupDemo"} completion:^(NSError *error, NSURL *URL) {
         
-        
+        NSDictionary *pageResources = @{
+                                        IDP_SIGNUP_SIGNUP_PAGE_TITLE:@"サインアップ"
+                                        ,IDP_SIGNUP_SIGNUP_PAGE_MESSAGE:[NSString stringWithFormat:@"%@ さん。アカウント作成のためにパスワードを入力してください。",_email]
+                                        ,IDP_SIGNUP_SUCCESS_PAGE_TITLE:@"サインアップ成功"
+                                        ,IDP_SIGNUP_SUCCESS_PAGE_MESSAGE:[NSString stringWithFormat:@"%@ さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。",_email]
+                                        ,IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE:@"アプリケーションを起動"
+                                        ,IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE:@"既存のユーザー"
+                                        ,IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE:[NSString stringWithFormat:@"%@ さんは既に作成済みです。",_email]
+                                        ,IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE:@"アプリケーションを起動"
+                                        ,IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE:@"タイムアウト"
+                                        ,IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE:@"サインアップはタイムアウトしました。再度招待元にリクエストを要求してください。"
+                                        };
+        [[IDPSignupManager defaultManager] signupInviteWithUsername:_email mail:_email options:options pageResources:pageResources completion:^(NSError *error, NSURL *URL) {
 
             if( error == nil ){
                 _inviteURL = URL;

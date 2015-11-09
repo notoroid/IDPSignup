@@ -28,8 +28,22 @@
 	use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 	
 	define('IDP_SIGNUP_PAGE_RESOURCES', 'pageResources' );
-	define('IDP_SIGNUP_DEFAULT_PAGE_TITLE', 'defaultPageTitle' );
-	
+	define('IDP_SIGNUP_SIGNUP_PAGE_TITLE', 'signupPageTitle' );
+	define('IDP_SIGNUP_SIGNUP_PAGE_MESSAGE', 'signupPageMessage' );
+	define('IDP_SIGNUP_SUCCESS_PAGE_TITLE', 'successPageTitle' );
+	define('IDP_SIGNUP_SUCCESS_PAGE_MESSAGE', 'successPageMessage' );
+	define('IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE', 'successPageButtonTitle' );
+	define('IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE', 'failureExistUserPageTitle' );
+	define('IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE', 'failureExistUserPageMessage' );
+	define('IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE', 'failureExistUserPageButtonTitle' );
+	define('IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE', 'failureTimeoutPageTitle' );
+	define('IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE', 'failureTimeoutPageMessage' );
+
+	define('IDP_SIGNUP_STATUS_CREATE_ACCOUNT', 'createAccount' );
+	define('IDP_SIGNUP_STATUS_SUCCEED_ACCOUNT', 'succeedAccount' );
+	define('IDP_SIGNUP_STATUS_FAILURE_TIMEOUT','failureTimeout');
+	define('IDP_SIGNUP_STATUS_FAILURE_EXIST_USER','failureExistUser');
+
 	define('PARSE_APPLICATION_ID', '<YOUR_PARSE_APPLICATION_ID>' );
 	define('PARSE_REST_API_KEY', '<YOUR_PARSE_REST_API_KEY>' );
 	define('PARSE_MASTER_KEY', '<YOUR_PARSE_MASTER_KEY>' );
@@ -73,7 +87,6 @@
 			$user->set("password", $s_passowrd );
 			$user->set("email", $email );
 			$user->signUp();
-			
 			
 			$query = new ParseQuery('Invitation');
 			$query->equalTo('UUID', $_SESSION['invitationID'] );
@@ -177,30 +190,32 @@
 				
 				// 招待オブジェクトを削除
 				$invitation->destroy();
+				
+				// 新しくUUIDを生成
+				$UUID = Uuid::uuid1();
+				$UUID = implode(explode( '-' , $UUID ));
+				$invitationCallback = new ParseObject('InvitationCallback');
+				$invitationCallback->set("username", $email );
+				$invitationCallback->set('UUID', $UUID );
+				$invitationCallback->save();
+				
+				$_SESSION['status'] = IDP_SIGNUP_STATUS_SUCCEED_ACCOUNT;
+				$_SESSION['invitationID'] = $UUID;
+				
+				$config = new ParseConfig();
+					// config を取得
+				$_SESSION['loginURL'] = $config->get('IDPLoginScheme') . $UUID;
+				echo file_get_contents('2_succeeded.html');	
+			}else{
+				$_SESSION['status'] = IDP_SIGNUP_STATUS_FAILURE_TIMEOUT;
+				echo file_get_contents('3_failured.html');
 			}
-			
-
-			// 新しくUUIDを生成
-			$UUID = Uuid::uuid1();
-			$UUID = implode(explode( '-' , $UUID ));
-			$invitationCallback = new ParseObject('InvitationCallback');
-			$invitationCallback->set("username", $email );
-			$invitationCallback->set('UUID', $UUID );
-			$invitationCallback->save();
-			
-			$_SESSION['status'] = 'succeedAccount';
-			$_SESSION['invitationID'] = $UUID;
-			
-			$config = new ParseConfig();
-				// config を取得
-			$_SESSION['loginURL'] = $config->get('IDPLoginScheme') . $UUID;
-			echo file_get_contents('2_succeeded.html');	
 			
 			// ログアウト
 			ParseUser::logOut();
 		} catch (ParseException $ex) {
 			if( $ex->getCode() == 202 ){
-				$_SESSION['status'] = 'failureExistUser';
+				$_SESSION['status'] = IDP_SIGNUP_STATUS_FAILURE_EXIST_USER;
 				$config = new ParseConfig();
 					// config を取得
 				$_SESSION['loginURL'] = $config->get('IDPLoginScheme');
@@ -233,15 +248,26 @@
 					// 招待IDを格納
 				$_SESSION['email'] = $invitation->get('email');
 				$_SESSION['username'] = $invitation->get('username');
-				$_SESSION['status'] = 'createAccount';
+				$_SESSION['status'] = IDP_SIGNUP_STATUS_CREATE_ACCOUNT;
 				
 				$pageResources = $invitation->get(IDP_SIGNUP_PAGE_RESOURCES);
 				if( $pageResources != NULL ){
-					$_SESSION[IDP_SIGNUP_DEFAULT_PAGE_TITLE] = $pageResources[IDP_SIGNUP_DEFAULT_PAGE_TITLE];
+					$_SESSION[IDP_SIGNUP_SIGNUP_PAGE_TITLE] = $pageResources[IDP_SIGNUP_SIGNUP_PAGE_TITLE];
+					$_SESSION[IDP_SIGNUP_SIGNUP_PAGE_MESSAGE] = $pageResources[IDP_SIGNUP_SIGNUP_PAGE_MESSAGE];
+					$_SESSION[IDP_SIGNUP_SUCCESS_PAGE_TITLE] = $pageResources[IDP_SIGNUP_SUCCESS_PAGE_TITLE];
+					$_SESSION[IDP_SIGNUP_SUCCESS_PAGE_MESSAGE] = $pageResources[IDP_SIGNUP_SUCCESS_PAGE_MESSAGE];
+					$_SESSION[IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE] = $pageResources[IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE];
+					$_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE] = $pageResources[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE];
+					$_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE] = $pageResources[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE];
+					$_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE] = $pageResources[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE];
+					$_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE] = $pageResources[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE];
+					$_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE] = $pageResources[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE];
 				}
 				
 				echo file_get_contents('1_signup.html');
 			}else{
+				$_SESSION['status'] = IDP_SIGNUP_STATUS_FAILURE_TIMEOUT;
+				
 				//タイムアウト
 				echo file_get_contents('3_failured.html');
 			}
@@ -275,7 +301,47 @@
 		$response->email = $_SESSION['email'];
 		$response->username = $_SESSION['username'];
 		$response->status = $_SESSION['status'];
-		$response->defaultPageTitle = $_SESSION[IDP_SIGNUP_DEFAULT_PAGE_TITLE];
+		
+		switch($response->status){
+			case IDP_SIGNUP_STATUS_CREATE_ACCOUNT:
+				if( empty($_SESSION[IDP_SIGNUP_SIGNUP_PAGE_TITLE]) != true ){
+					$response->title = $_SESSION[IDP_SIGNUP_SIGNUP_PAGE_TITLE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_SIGNUP_PAGE_MESSAGE]) != true ){
+					$response->message = $_SESSION[IDP_SIGNUP_SIGNUP_PAGE_MESSAGE];
+				}
+				break;
+			case IDP_SIGNUP_STATUS_SUCCEED_ACCOUNT:
+				if( empty($_SESSION[IDP_SIGNUP_SUCCESS_PAGE_TITLE]) != true ){
+					$response->title = $_SESSION[IDP_SIGNUP_SUCCESS_PAGE_TITLE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_SUCCESS_PAGE_MESSAGE]) != true ){
+					$response->message = $_SESSION[IDP_SIGNUP_SUCCESS_PAGE_MESSAGE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE]) != true ){
+					$response->buttonTitile = $_SESSION[IDP_SIGNUP_SUCCESS_PAGE_BUTTON_TITLE];
+				}
+				break;
+			case IDP_SIGNUP_STATUS_FAILURE_TIMEOUT:
+				if( empty($_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE]) != true ){
+					$response->title = $_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE]) != true ){
+					$response->message = $_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE];
+				}
+				break;
+			case IDP_SIGNUP_STATUS_FAILURE_EXIST_USER:
+				if( empty($_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE]) != true ){
+					$response->title = $_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_TITLE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE]) != true ){
+					$response->message = $_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_MESSAGE];
+				}
+				if( empty($_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE]) != true ){
+					$response->buttonTitile = $_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE];
+				}
+				break;
+		}
 	
 		if( empty($_SESSION['loginURL']) != true ){
 			$response->loginURL = $_SESSION['loginURL'];	
