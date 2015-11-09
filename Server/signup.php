@@ -138,41 +138,36 @@
 					$queryClassName = $objectPropertie['className'];
 					$queryObjectId = $objectPropertie['objectId'];
 					$destination = $objectPropertie['destination'];
+					$propertyType = $objectPropertie['type'];
 					
-					if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
-						$query = new ParseQuery($queryClassName);
-						$targetObject = $query->get($queryObjectId);
-						if( $targetObject != NULL ){
-							if( $destination == 'user' ){
-								$user->set($propertyName, $targetObject );	
-								$user->save();
-							}else if( $destination == 'object' ){
-								$targetObject->set($propertyName, $user );	
-								$targetObject->	save();
+					if( $propertyType == 'pointer' ){
+						if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
+							$query = new ParseQuery($queryClassName);
+							$targetObject = $query->get($queryObjectId);
+							if( $targetObject != NULL ){
+								if( $destination == 'user' ){
+									$user->set($propertyName, $targetObject );	
+									$user->save();
+								}else if( $destination == 'object' ){
+									$targetObject->set($propertyName, $user );	
+									$targetObject->	save();
+								}
 							}
 						}
-					}
-				}
-				
-				$relationShips = $options['relationShips'];
-				foreach ($relationShips as $relationShip ){
-					$propertyName = $relationShip['name'];
-					$queryClassName = $relationShip['className'];
-					$queryObjectId = $relationShip['objectId'];
-					$destination = $objectPropertie['destination'];
-
-					if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
-						$query = new ParseQuery($queryClassName);
-						$targetObject = $query->get($queryObjectId);
-						if( $targetObject != NULL ){
-							if( $destination == 'user' ){
-								$userRelations = $user->getRelation($propertyName);
-								$userRelations->add($targetObject);
-								$user->save();
-							}else if( $destination == 'object' ){	
-								$targetRelations = $targetObject->getRelation($propertyName);
-								$targetRelations->add($user);
-								$targetObject->save();
+					}else if( $propertyType == 'relations' ){
+						if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
+							$query = new ParseQuery($queryClassName);
+							$targetObject = $query->get($queryObjectId);
+							if( $targetObject != NULL ){
+								if( $destination == 'user' ){
+									$userRelations = $user->getRelation($propertyName);
+									$userRelations->add($targetObject);
+									$user->save();
+								}else if( $destination == 'object' ){	
+									$targetRelations = $targetObject->getRelation($propertyName);
+									$targetRelations->add($user);
+									$targetObject->save();
+								}
 							}
 						}
 					}
