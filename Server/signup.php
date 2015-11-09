@@ -27,6 +27,7 @@
 	use Ramsey\Uuid\Uuid;
 	use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 	
+
 	define('PARSE_APPLICATION_ID', '<YOUR_PARSE_APPLICATION_ID>' );
 	define('PARSE_REST_API_KEY', '<YOUR_PARSE_REST_API_KEY>' );
 	define('PARSE_MASTER_KEY', '<YOUR_PARSE_MASTER_KEY>' );
@@ -81,15 +82,40 @@
 			if( $invitation != NULL ){
 				// オプションを登録
 				$options = $invitation->get('options');
-				$roleNames = $options['roles'];
-				foreach ($roleNames as $roleName ){
-					$query = new ParseQuery("_Role");
-					$query->equalTo('name', $roleName );
-					$role = $query->first();
-					if( $role != NULL ){
-						$role->getUsers()->add($user);
-						$role->save();
+				$roleSchemes = $options['roles'];
+				foreach ($roleSchemes as $roleScheme ){
+					$roleName = $roleScheme['name'];
+					$roleGenerateType = $roleScheme['generateType'];
+/*					
+					$roleRelationShips = $roleScheme['relationShips'];
+*/
+					
+					// 既存のRoleに追加
+					$saveRole = false;
+					if( empty($roleName) != true ){
+						$query = new ParseQuery("_Role");
+						$query->equalTo('name', $roleName );
+						$role = $query->first();
+						if( $role != NULL ){
+							if( $roleGenerateType != 'new' ){
+								$role->getUsers()->add($user);
+								$role->save();
+							}
+							$saveRole = true;
+						}
 					}
+					
+					if( $roleGenerateType != 'exist' && $saveRole != true ){
+						// 新しくロールを追加
+						if( empty($roleName) != true ){
+							$roleACL = new ParseACL();
+							$roleACL->setPublicWriteAccess(true);
+							$roleACL->setPublicReadAccess(true);
+							$role = ParseRole::createRole($roleName, $roleACL);
+							$role->getUsers()->add($user);
+							$role->save();
+						}
+					}					
 				}
 
 				$objectProperties = $options['properties'];
@@ -97,27 +123,44 @@
 					$propertyName = $objectPropertie['name'];
 					$queryClassName = $objectPropertie['className'];
 					$queryObjectId = $objectPropertie['objectId'];
+					$destination = $objectPropertie['destination'];
 					
-					$query = new ParseQuery($queryClassName);
-					$targetObject = $query->get($queryObjectId);
-					if( $targetObject != NULL ){
-						$user->set($propertyName, $targetObject );	
-						$user->save();
+					if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
+						$query = new ParseQuery($queryClassName);
+						$targetObject = $query->get($queryObjectId);
+						if( $targetObject != NULL ){
+							if( $destination == 'user' ){
+								$user->set($propertyName, $targetObject );	
+								$user->save();
+							}else if( $destination == 'object' ){
+								$targetObject->set($propertyName, $user );	
+								$targetObject->	save();
+							}
+						}
 					}
 				}
 				
-				$relationsCollection = $options['relations'];
-				foreach ($relationsCollection as $relations ){
-					$propertyName = $relations['name'];
-					$queryClassName = $relations['className'];
-					$queryObjectId = $relations['objectId'];
-					
-					$query = new ParseQuery($queryClassName);
-					$targetObject = $query->get($queryObjectId);
-					if( $targetObject != NULL ){
-						$targetRelations = $targetObject->getRelation($propertyName);
-						$targetRelations->add($user);
-						$targetObject->save();
+				$relationShips = $options['relationShips'];
+				foreach ($relationShips as $relationShip ){
+					$propertyName = $relationShip['name'];
+					$queryClassName = $relationShip['className'];
+					$queryObjectId = $relationShip['objectId'];
+					$destination = $objectPropertie['destination'];
+
+					if( empty($propertyName) != true && empty($queryClassName) != true && empty($queryObjectId) != true && empty($destination) != true){
+						$query = new ParseQuery($queryClassName);
+						$targetObject = $query->get($queryObjectId);
+						if( $targetObject != NULL ){
+							if( $destination == 'user' ){
+								$userRelations = $user->getRelation($propertyName);
+								$userRelations->add($targetObject);
+								$user->save();
+							}else if( $destination == 'object' ){	
+								$targetRelations = $targetObject->getRelation($propertyName);
+								$targetRelations->add($user);
+								$targetObject->save();
+							}
+						}
 					}
 				}
 				
