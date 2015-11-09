@@ -21,13 +21,30 @@ $(function() {
                 			console.log(account);
                             
                 			if( account['status'] == 'createAccount'){
-	                			$('#headerTitle').text('サインアップ');
+	                			if( account['title'].length > 0 ){
+		                			$('#headerTitle').text(account['title']);
+	                			}else{
+		                			$('#headerTitle').text('サインアップ');	
+	                			}
 	                			
-                				$('div#message').html( '<div>ようこそ' + account['username'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
+	                			if( account['message'].length > 0 ){
+		                			$('div#message').html( '<div>' + account['message'] + '</div>' );
+		                		}else{
+	                				$('div#message').html( '<div>ようこそ' + account['username'] + 'さん。アカウント作成のためにパスワードを入力してください。</div>' );
+		                		}
                 			}else if( account['status'] == 'succeedAccount' ){
-	                			$('#headerTitle').text('成功');
+	                			if( account['title'].length > 0 ){
+		                			$('#headerTitle').text(account['title']);
+	                			}else{
+		                			$('#headerTitle').text('成功');
+		                		}
 	                			
-        	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
+	                			if( account['message'].length > 0 ){
+		                			$('div#message').html( '<div>' + account['message'] + '</div>' );
+		                		}else{
+	        	        			$('div#message').html( '<div>' + account['username'] + 'さん。アカウント作成が完了しました。以下のボタンをタップしてアプリケーションを起動してください。</div>' );
+		                		}
+	                			
 		                        $( 'a#openApplication' ).href ='';
 		                        $('a#openApplication').click(function() {
 		                             location.href = account['loginURL'];
