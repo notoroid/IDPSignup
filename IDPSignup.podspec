@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   s.dependency 'AFNetworking/Serialization'
   s.dependency 'AFNetworking/Security'
   s.dependency 'AFNetworking/Reachability'
+  s.dependency 'AFNetworking/NSURLConnection'
   s.dependency 'AFNetworking/NSURLSession'
 
   s.dependency 'Parse'

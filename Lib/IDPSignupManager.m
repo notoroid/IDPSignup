@@ -8,7 +8,7 @@
 
 #import "IDPSignupManager.h"
 #import <Parse/Parse.h>
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 static IDPSignupManager* s_signupManager = nil;
 
