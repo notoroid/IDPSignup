@@ -8,7 +8,7 @@
 
 #import "IDPSignupManager.h"
 #import <Parse/Parse.h>
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 
 static IDPSignupManager* s_signupManager = nil;
 
@@ -133,17 +133,16 @@ static IDPSignupManager* s_signupManager = nil;
             
             invitationCallbackURL = [invitationCallbackURL stringByAppendingString:url.host];
             
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            [manager GET:invitationCallbackURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            [manager GET:invitationCallbackURL parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                 if( completion != nil ){
                     completion(nil,responseObject[@"username"],responseObject[@"email"]);
                 }
-            }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 if( completion != nil ){
                     completion(error,nil,nil);
                 }
             }];
-            
         }
         
     }];

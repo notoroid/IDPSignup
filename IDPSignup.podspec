@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "IDPSignup"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "IDPSignup はBaaSの1つであるParseを利用したサインアップ機能を提供するためのスクリプトとiOSミドルウェア一式です。"
 
   s.description  = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.1"
   
-  s.source       = { :git => "https://github.com/notoroid/IDPSignup.git", :tag => "v0.0.3" }
+  s.source       = { :git => "https://github.com/notoroid/IDPSignup.git", :tag => "v0.0.4" }
   
   s.source_files  = "Lib/**/*.{h,m}"
   s.public_header_files = "Lib/**/*.h"
@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
   s.dependency 'AFNetworking/Serialization'
   s.dependency 'AFNetworking/Security'
   s.dependency 'AFNetworking/Reachability'
-  s.dependency 'AFNetworking/NSURLConnection'
   s.dependency 'AFNetworking/NSURLSession'
 
   s.dependency 'Parse'
