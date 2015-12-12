@@ -134,7 +134,11 @@ static IDPSignupManager* s_signupManager = nil;
             invitationCallbackURL = [invitationCallbackURL stringByAppendingString:url.host];
             
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            [manager GET:invitationCallbackURL parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            
+            [manager GET:invitationCallbackURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+                
+                }
+             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                 if( completion != nil ){
                     completion(nil,responseObject[@"username"],responseObject[@"email"]);
                 }
