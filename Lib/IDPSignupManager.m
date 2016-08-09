@@ -115,10 +115,14 @@ static IDPSignupManager* s_signupManager = nil;
     
 }
 
-- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options signupHandle:(void (^)())signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion
+- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options scheme:(NSString *)scheme signupHandle:(void (^)())signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion
 {
+    __block NSString *loginScheme = scheme;
+    
     [PFConfig getConfigInBackgroundWithBlock:^(PFConfig * _Nullable config, NSError * _Nullable error) {
-        NSString *loginScheme = [config objectForKey:@"IDPLoginScheme"];
+        if( loginScheme == nil ){
+            loginScheme = [config objectForKey:@"IDPLoginScheme"];
+        }
         
         NSString *invitationCallbackURL = [config objectForKey:@"IDPInvitationURL"];
         invitationCallbackURL = [invitationCallbackURL stringByAppendingString:@"?callbackid="];

@@ -38,6 +38,7 @@
 	define('IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE', 'failureExistUserPageButtonTitle' );
 	define('IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE', 'failureTimeoutPageTitle' );
 	define('IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE', 'failureTimeoutPageMessage' );
+	define('IDP_SIGNUP_SCHEME', 'signupScheme' );
 
 	define('IDP_SIGNUP_STATUS_CREATE_ACCOUNT', 'createAccount' );
 	define('IDP_SIGNUP_STATUS_SUCCEED_ACCOUNT', 'succeedAccount' );
@@ -201,10 +202,15 @@
 				
 				$_SESSION['status'] = IDP_SIGNUP_STATUS_SUCCEED_ACCOUNT;
 				$_SESSION['invitationID'] = $UUID;
+
+				if( empty($_SESSION[IDP_SIGNUP_SCHEME]) != true ){
+					$_SESSION['loginURL'] = $_SESSION[IDP_SIGNUP_SCHEME] . $UUID;
+				}else{
+					$config = new ParseConfig();
+						// config を取得
+					$_SESSION['loginURL'] = $config->get('IDPLoginScheme') . $UUID;
+				}
 				
-				$config = new ParseConfig();
-					// config を取得
-				$_SESSION['loginURL'] = $config->get('IDPLoginScheme') . $UUID;
 				echo file_get_contents('2_succeeded.html');	
 			}else{
 				$_SESSION['status'] = IDP_SIGNUP_STATUS_FAILURE_TIMEOUT;
@@ -262,6 +268,7 @@
 					$_SESSION[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE] = $pageResources[IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE];
 					$_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE] = $pageResources[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE];
 					$_SESSION[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE] = $pageResources[IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE];
+					$_SESSION[IDP_SIGNUP_SCHEME] = $pageResources[IDP_SIGNUP_SCHEME];
 				}
 				
 				echo file_get_contents('1_signup.html');
