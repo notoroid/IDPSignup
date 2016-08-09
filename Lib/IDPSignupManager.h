@@ -20,6 +20,7 @@
 #define IDP_SIGNUP_FAILURE_EXIST_USER_PAGE_BUTTON_TITLE @"failureExistUserPageButtonTitle"
 #define IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_TITLE @"failureTimeoutPageTitle"
 #define IDP_SIGNUP_FAILURE_TIMEOUT_PAGE_MESSAGE @"failureTimeoutPageMessage"
+#define IDP_SIGNUP_SCHEME @"signupScheme"
 
 @interface IDPSignupManager : NSObject
 
