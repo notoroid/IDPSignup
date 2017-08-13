@@ -48,6 +48,7 @@
 	define('PARSE_APPLICATION_ID', '<YOUR_PARSE_APPLICATION_ID>' );
 	define('PARSE_REST_API_KEY', '<YOUR_PARSE_REST_API_KEY>' );
 	define('PARSE_MASTER_KEY', '<YOUR_PARSE_MASTER_KEY>' );
+	define('PARSE_SERVER_URL', '<YOUR_PARSE_SERVER_URL>' );
 
 	$s_invitationid = htmlspecialchars($_GET['invitationid'], ENT_QUOTES);
 	$s_method = htmlspecialchars($_POST['method'], ENT_QUOTES);
@@ -66,11 +67,15 @@
 	        $response->errorDescription = "REST API key empty.";
 		}else if(PARSE_MASTER_KEY == '<YOUR_PARSE_MASTER_KEY>'){
 	        $response->errorDescription = "master key empty.";
+		}else if(PARSE_SERVER_URL == '<YOUR_PARSE_SERVER_URL>'){
+	        $response->errorDescription = "parse server URL empty.";
 		}
+		
         header('Content-type: application/json');
         echo stripslashes(json_encode($response));
 	}else if( $s_method =='signup' ){
 		ParseClient::initialize(PARSE_APPLICATION_ID,PARSE_REST_API_KEY,PARSE_MASTER_KEY);
+		ParseClient::setServerURL(PARSE_SERVER_URL,'parse');
 		
 		$email = $_SESSION['email'];
 			// メールを取得
@@ -79,8 +84,6 @@
 			
 		$s_passowrd = htmlspecialchars( $_POST['password']  ,ENT_QUOTES);
 			// POSTから取得
-		$key = $_SESSION['key'];
-			// メールを取得
 			
 		try {
 			$user = new ParseUser();
@@ -91,8 +94,9 @@
 			
 			$query = new ParseQuery('Invitation');
 			$query->equalTo('UUID', $_SESSION['invitationID'] );
-			$query->greaterThanOrEqualTo('createdAt',date('Y-m-d\TH:i:s.u', strtotime('-24 hour')) );
+			$query->greaterThanOrEqualTo('createdAt',["__type" => "Date","iso" => gmdate('Y-m-d\TH:i:s.000\Z', strtotime('-24 hour'))]);
 				// 24時間以内のオブジェクトに限る
+			
 			$invitation = $query->first();
 			if( $invitation != NULL ){
 				// オプションを登録
@@ -239,15 +243,17 @@
 	
 	}else if( empty($s_invitationid) != true ){
 		ParseClient::initialize(PARSE_APPLICATION_ID,PARSE_REST_API_KEY,PARSE_MASTER_KEY);
-				
+		ParseClient::setServerURL(PARSE_SERVER_URL,'parse');
+
 		try {
 			// 権限を確認
 			$query = new ParseQuery('Invitation');
 			$query->equalTo('UUID', $s_invitationid );
-			$query->greaterThanOrEqualTo('createdAt',date('Y-m-d\TH:i:s.u', strtotime('-24 hour')) );
+			$query->greaterThanOrEqualTo('createdAt',["__type" => "Date","iso" => gmdate('Y-m-d\TH:i:s.000\Z', strtotime('-24 hour'))]);
 				// 24時間以内のオブジェクトに限る
+			
+			// Invitationオブジェクトを取得			
 			$invitation = $query->first();
-				// Invitationオブジェクトを取得
 			
 			if( $invitation != NULL ){
 				$_SESSION['invitationID'] = $invitation->get('UUID');
@@ -284,11 +290,12 @@
 		}
 	}else if( empty($s_callbackid) != true ){
 		ParseClient::initialize(PARSE_APPLICATION_ID,PARSE_REST_API_KEY,PARSE_MASTER_KEY);
+		ParseClient::setServerURL(PARSE_SERVER_URL,'parse');
 		
 		// 権限を確認
 		$query = new ParseQuery('InvitationCallback');
 		$query->equalTo('UUID', $s_callbackid );
-		$query->greaterThanOrEqualTo('createdAt',date('Y-m-d\TH:i:s.u', strtotime('-24 hour')) );
+		$query->greaterThanOrEqualTo('createdAt',["__type" => "Date","iso" => gmdate('Y-m-d\TH:i:s.000\Z', strtotime('-24 hour'))]);
 			// 24時間以内のオブジェクトに限る
 		$invitationCallback = $query->first();
 		$username = $invitationCallback->get('username');
