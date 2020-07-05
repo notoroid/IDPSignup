@@ -64,12 +64,12 @@
         [[IDPSignupManager defaultManager] signupInviteWithUsername:_email mail:_email options:options pageResources:pageResources completion:^(NSError *error, NSURL *URL) {
 
             if( error == nil ){
-                _inviteURL = URL;
-                _inviteTextField.text =_inviteURL.absoluteString;
+                self->_inviteURL = URL;
+                self->_inviteTextField.text =self->_inviteURL.absoluteString;
                 
-                NSLog(@"inviteURL=%@",_inviteURL.absoluteString);
+                NSLog(@"inviteURL=%@",self->_inviteURL.absoluteString);
                 
-                [_userInviteViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self->_userInviteViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [obj setHidden:NO];
                 }];
                 

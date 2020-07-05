@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0EF88DBD362EECEC10477F /* libPods-IDPSignup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E730F4141AA20E9D71B7B0BE /* libPods-IDPSignup.a */; };
 		875CE9DE1BF09EDC00536BB2 /* IDPSignupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE9DB1BF09EDC00536BB2 /* IDPSignupManager.m */; };
 		875CE9DF1BF09EDC00536BB2 /* NSDictionary+IDPSignup.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE9DD1BF09EDC00536BB2 /* NSDictionary+IDPSignup.m */; };
 		875CE9E41BF09F3D00536BB2 /* InviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE9E11BF09F3D00536BB2 /* InviteViewController.m */; };
@@ -16,13 +17,13 @@
 		879DA4191BEDF329002F0DDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 879DA4171BEDF329002F0DDC /* Main.storyboard */; };
 		879DA41B1BEDF329002F0DDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 879DA41A1BEDF329002F0DDC /* Assets.xcassets */; };
 		879DA41E1BEDF329002F0DDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 879DA41C1BEDF329002F0DDC /* LaunchScreen.storyboard */; };
-		99AB669DFEEE6AFE0FA1CFE3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6509086D13F15348D862EABB /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1417977E0CA43DAF72C1ED7D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		6509086D13F15348D862EABB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B5F6DB2C5A2C2A0C245ECBA /* Pods-IDPSignup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDPSignup.release.xcconfig"; path = "Pods/Target Support Files/Pods-IDPSignup/Pods-IDPSignup.release.xcconfig"; sourceTree = "<group>"; };
 		736B00E46472CDBE1A34032D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		836B2E733B78D94DFADD4E40 /* Pods-IDPSignup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IDPSignup.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IDPSignup/Pods-IDPSignup.debug.xcconfig"; sourceTree = "<group>"; };
 		875CE9DA1BF09EDC00536BB2 /* IDPSignupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPSignupManager.h; sourceTree = "<group>"; };
 		875CE9DB1BF09EDC00536BB2 /* IDPSignupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPSignupManager.m; sourceTree = "<group>"; };
 		875CE9DC1BF09EDC00536BB2 /* NSDictionary+IDPSignup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPSignup.h"; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		879DA41D1BEDF329002F0DDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		879DA41F1BEDF329002F0DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87F330591BF16A81000C7E20 /* IDPSignup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPSignup.h; sourceTree = "<group>"; };
+		E730F4141AA20E9D71B7B0BE /* libPods-IDPSignup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IDPSignup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99AB669DFEEE6AFE0FA1CFE3 /* libPods.a in Frameworks */,
+				0E0EF88DBD362EECEC10477F /* libPods-IDPSignup.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +61,8 @@
 			children = (
 				1417977E0CA43DAF72C1ED7D /* Pods.debug.xcconfig */,
 				736B00E46472CDBE1A34032D /* Pods.release.xcconfig */,
+				836B2E733B78D94DFADD4E40 /* Pods-IDPSignup.debug.xcconfig */,
+				6B5F6DB2C5A2C2A0C245ECBA /* Pods-IDPSignup.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -123,7 +127,7 @@
 		F899069C1F132A3C364D3FA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6509086D13F15348D862EABB /* libPods.a */,
+				E730F4141AA20E9D71B7B0BE /* libPods-IDPSignup.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,12 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 879DA4221BEDF329002F0DDC /* Build configuration list for PBXNativeTarget "IDPSignup" */;
 			buildPhases = (
+				C9CB407E8AE737666D036561 /* [CP] Check Pods Manifest.lock */,
 				26D592BAB6BAC04043FF04D3 /* Check Pods Manifest.lock */,
 				879DA4071BEDF329002F0DDC /* Sources */,
 				879DA4081BEDF329002F0DDC /* Frameworks */,
 				879DA4091BEDF329002F0DDC /* Resources */,
-				384703D1BA4BEE76E35B2991 /* Embed Pods Frameworks */,
-				43EF3F2B354F46C0D8C11E97 /* Copy Pods Resources */,
+				BE73FC5062E70D061AAE35D7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,7 +161,7 @@
 		879DA4031BEDF329002F0DDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Irimasu Densan Planning";
 				TargetAttributes = {
 					879DA40A1BEDF329002F0DDC = {
@@ -167,7 +171,7 @@
 			};
 			buildConfigurationList = 879DA4061BEDF329002F0DDC /* Build configuration list for PBXProject "IDPSignup" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -212,34 +216,44 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		384703D1BA4BEE76E35B2991 /* Embed Pods Frameworks */ = {
+		BE73FC5062E70D061AAE35D7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IDPSignup/Pods-IDPSignup-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.bundle",
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Parse.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IDPSignup/Pods-IDPSignup-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		43EF3F2B354F46C0D8C11E97 /* Copy Pods Resources */ = {
+		C9CB407E8AE737666D036561 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IDPSignup-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -288,13 +302,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -332,13 +356,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -364,7 +398,7 @@
 		};
 		879DA4231BEDF329002F0DDC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1417977E0CA43DAF72C1ED7D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 836B2E733B78D94DFADD4E40 /* Pods-IDPSignup.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = IDPSignup/Info.plist;
@@ -376,7 +410,7 @@
 		};
 		879DA4241BEDF329002F0DDC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 736B00E46472CDBE1A34032D /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6B5F6DB2C5A2C2A0C245ECBA /* Pods-IDPSignup.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = IDPSignup/Info.plist;

@@ -1,8 +1,14 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 
-pod 'AFNetworking'
+def main_pods
+    pod 'AFNetworking'
+    pod 'Parse'
+    pod 'MBProgressHUD'
+end
 
-pod 'Parse'
-pod 'MBProgressHUD'
+target 'IDPSignup' do
+    main_pods
+end
+

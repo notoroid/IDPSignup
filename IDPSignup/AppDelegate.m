@@ -48,14 +48,14 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
-    [[IDPSignupManager defaultManager] handleOpenURL:url options:options signupHandle:^{
+    [[IDPSignupManager defaultManager] handleOpenURL:url options:options scheme:nil signupHandle:^{
         
-    } completion:^(NSError *error,NSString *username, NSString *email) {
-        AppDelegate *appDelegate = (AppDelegate *)app.delegate;
-        UINavigationController *navigationController =  (UINavigationController *)appDelegate.window.rootViewController;
-        StartViewController *startViewController = (StartViewController *)navigationController.topViewController;
-        
-        startViewController.inviteTextView.text = username;
+    } completion:^(NSError *error, NSString *username, NSString *email) {
+       AppDelegate *appDelegate = (AppDelegate *)app.delegate;
+       UINavigationController *navigationController =  (UINavigationController *)appDelegate.window.rootViewController;
+       StartViewController *startViewController = (StartViewController *)navigationController.topViewController;
+       
+       startViewController.inviteTextView.text = username;
     }];
     
     return YES;

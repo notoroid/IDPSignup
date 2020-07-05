@@ -115,7 +115,7 @@ static IDPSignupManager* s_signupManager = nil;
     
 }
 
-- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options scheme:(NSString *)scheme signupHandle:(void (^)())signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion
+- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options scheme:(NSString *)scheme signupHandle:(void (^)(void))signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion
 {
     __block NSString *loginScheme = scheme;
     
@@ -138,18 +138,16 @@ static IDPSignupManager* s_signupManager = nil;
             invitationCallbackURL = [invitationCallbackURL stringByAppendingString:url.host];
             
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            
-            [manager GET:invitationCallbackURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-                
-                }
-             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-                if( completion != nil ){
-                    completion(nil,responseObject[@"username"],responseObject[@"email"]);
-                }
+            [manager GET:invitationCallbackURL parameters:nil headers:@{} progress:^(NSProgress * _Nonnull downloadProgress) {
+               
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+               if( completion != nil ){
+                   completion(nil,responseObject[@"username"],responseObject[@"email"]);
+               }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                if( completion != nil ){
-                    completion(error,nil,nil);
-                }
+               if( completion != nil ){
+                   completion(error,nil,nil);
+               }
             }];
         }
         
