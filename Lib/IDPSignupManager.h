@@ -30,6 +30,6 @@
 
 - (void) signupInviteWithUsername:(NSString *)username mail:(NSString *)mail options:(NSDictionary *)options pageResources:(NSDictionary *)pageResources completion:(void (^)(NSError *error,NSURL *URL))completion; // サインアップを呼び出し
 
-- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options scheme:(NSString *)scheme signupHandle:(void (^)())signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion;
+- (void) handleOpenURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options scheme:(NSString *)scheme signupHandle:(void (^)(void))signupHandle completion:(void (^)(NSError *error,NSString *username,NSString *email))completion;
 
 @end

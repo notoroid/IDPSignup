@@ -73,7 +73,7 @@
                     [obj setHidden:NO];
                 }];
                 
-                [_generateInvitationViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self->_generateInvitationViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [obj setHidden:YES];
                 }];
             }
@@ -90,7 +90,7 @@
 {
     [self performSegueWithIdentifier:@"returnToStartSegue" sender:nil];
     
-    [[UIApplication sharedApplication] openURL:_inviteURL];
+    [[UIApplication sharedApplication] openURL:_inviteURL options:@{} completionHandler:nil];
 }
 
 - (IBAction)onPastboard:(id)sender
